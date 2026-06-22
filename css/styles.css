@@ -1,0 +1,77 @@
+/* ============================================================
+   PetСпутник — глобальные стили
+   ------------------------------------------------------------
+   Шрифты (Nunito, Rubik) и иконки (Phosphor) подключаются через
+   CDN в <head> файла index.html.
+   Здесь живут только глобальные правила: сбросы, базовые стили
+   страницы и @keyframes для анимаций.
+   Вёрстка секций свёрстана инлайн-стилями прямо в index.html —
+   ищи их по комментариям-разделителям (HEADER, HERO, FEATURES…).
+   ============================================================ */
+
+/* ---- Палитра бренда (для справки и будущего рефакторинга) ----
+   Сейчас цвета заданы инлайн в разметке. При желании постепенно
+   заменяй их на var(--…), чтобы менять тему в одном месте.        */
+:root {
+  --bg-grad-1: #f3eefc;
+  --bg-grad-2: #f1f0fb;
+  --bg-grad-3: #eef7f3;
+  --bg-grad-4: #eaf6f1;
+
+  --text: #2b2150;
+  --text-muted: #5b5286;
+  --text-soft: #6b6396;
+
+  --accent: #7a5fd0;
+  --accent-strong: #6b4fc4;
+
+  --selection-bg: #cdbdf6;
+  --selection-fg: #241a44;
+}
+
+/* ---- Базовые сбросы ---- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: #cdbdf6; color: #241a44; }
+
+/* ---- Анимации ---- */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(34px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes riseInPhone {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes floatY2 {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(24px, -22px) scale(1.08); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-26px, 18px) scale(1.05); }
+}
+@keyframes spinOrbit {
+  from { transform: rotate(0); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: .5; transform: scale(.85); }
+  50%      { opacity: 1;  transform: scale(1); }
+}
