@@ -1,0 +1,7 @@
+User-agent: *
+
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+Sitemap: https://pet-sputnik.ru/sitemap.xml
