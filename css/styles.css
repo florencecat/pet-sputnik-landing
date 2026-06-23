@@ -75,3 +75,86 @@ body {
   0%, 100% { opacity: .5; transform: scale(.85); }
   50%      { opacity: 1;  transform: scale(1); }
 }
+
+/* ============================================================
+   Адаптив (планшеты и телефоны)
+   ------------------------------------------------------------
+   Базовая вёрстка свёрстана инлайн-стилями под десктоп, поэтому
+   мобильные правила переопределяют ключевые контейнеры через
+   !important. Классы-хуки расставлены в index.html:
+     .hero, .split            — двухколоночные блоки → одна колонка
+     .trust-grid              — полоса из 4 плиток → 2
+     .cards-2 / .cards-3      — сетки карточек внутри секций
+     .section-title           — заголовки секций (h2)
+     .hero-title / .cta-title — крупные заголовки
+     .cta-card                — карточка призыва к действию (отступы)
+     .floaty                  — плавающие подсказки у телефонов
+     .nav-link                — текстовые пункты меню в шапке
+     .media-col               — колонка со скриншотом (на мобильном уходит под текст)
+     .store-item              — обёртка кнопки-бейджа магазина (равная ширина)
+   ============================================================ */
+
+/* Якоря с поправкой на липкую шапку (чтобы заголовок не прятался под ней) */
+:where(section[id], #top) { scroll-margin-top: 90px; }
+
+/* ---- Планшеты и уже: раскладка в одну колонку ---- */
+@media (max-width: 900px) {
+  .hero,
+  .split { grid-template-columns: minmax(0, 1fr) !important; gap: 36px !important; }
+  .hero  { padding-top: 32px !important; }
+
+  /* в секциях «Питомцы» и «ИИ» скриншот должен идти после текста */
+  .media-col { order: 2 !important; }
+
+  .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+  /* min-width:0 не даёт длинным словам распирать грид-ячейки (grid blowout) */
+  .hero > *, .split > *, .trust-grid > *, .cards-2 > *, .cards-3 > * { min-width: 0 !important; }
+
+  /* текст внутри плиток не вылезает за рамки (flex-элемент тоже должен сжиматься) */
+  .trust-grid > div > div { min-width: 0 !important; overflow-wrap: anywhere; }
+
+  /* при стекинге плавающие подсказки теряют привязку к телефону — скрываем */
+  .floaty { display: none !important; }
+}
+
+/* ---- Телефоны ---- */
+@media (max-width: 640px) {
+  /* в шапке прячем текстовые ссылки, оставляем логотип и кнопку «Скачать» */
+  .nav-link { display: none !important; }
+
+  /* ужимаем шапку, чтобы логотип и кнопка влезали по ширине */
+  .site-header { padding: 12px !important; }
+  .site-header > div { gap: 10px !important; padding: 8px 10px 8px 12px !important; }
+  .brand-name { font-size: 18px !important; }
+  .nav-cta { padding: 9px 14px !important; font-size: 14px !important; }
+  .nav-cta span { display: none !important; }  /* бейдж «скоро» в шапке прячем */
+
+  /* компактнее заголовки */
+  .hero-title    { font-size: 38px !important; }
+  .section-title { font-size: 30px !important; }
+  .cta-title     { font-size: 32px !important; }
+
+  /* меньше отступов между блоками (секции стояли слишком далеко друг от друга) */
+  .hero     { padding: 26px 20px 30px !important; gap: 26px !important; }
+  .split    { padding: 26px 20px !important; gap: 24px !important; }
+  .cta-card { padding: 40px 22px !important; }
+  #health   { padding-top: 10px !important; padding-bottom: 10px !important; }
+
+  /* сетка статистики «Здоровья»: 3 → 2 колонки */
+  .cards-3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+  /* кнопки-бейджи скачивания одинаковой ширины (фикс. ширина во всех секциях) */
+  .store-item     { width: 100% !important; max-width: 280px !important; }
+  .store-item > a { width: 100% !important; min-width: 0 !important; }
+}
+
+/* ---- Узкие телефоны ---- */
+@media (max-width: 470px) {
+  .hero-title    { font-size: 33px !important; }
+  .section-title { font-size: 26px !important; }
+
+  /* плитки и карточки в один столбец (на узком 2 колонки слишком тесные) */
+  .trust-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .cards-2    { grid-template-columns: minmax(0, 1fr) !important; }
+}
